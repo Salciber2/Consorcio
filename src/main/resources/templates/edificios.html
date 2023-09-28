@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edificios</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    
+    <div class="container">
+
+        <!-- Menú de navegación -->
+        <div th:insert="~{menu::menu}"></div>
+
+        <h1 class="titulo">Administración de Edificios</h1>
+
+        <div class="row">
+            <div class="col-6">
+                <!-- Formulario Alta de Edificios -->
+                <form method="post" th:object="${edificio}" th:action="@{/edificiosSave}">
+                    <h2>Agregar Edificio</h2>
+                    <div class="alert alert-info" role="alert" th:text="${mensajeEdificio}"></div>                      
+                    <div class="mb-3">
+                        <label for="direccion" class="form-label">Direccion</label>
+                        <input type="text" class="form-control" id="direccion" th:field="*{direccion}" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Agregar</button>
+                    <button type="reset" class="btn btn-danger">Limpiar</button>
+                </form>
+                <!-- Fin Formulario Alta de Edificios -->
+
+                <!-- Lista de Edificios -->
+                <h2>Ver edificios</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Direccion</th>
+                            <th scope="col">Fecha de Alta</th>
+                            <th scope="col">Fecha de Modificación</th>
+                            <th scope="col">Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="edificio : ${likeDireccion}">
+                            <th scope="row" th:text="${edificio.id}"></th>
+                            <td th:text="${edificio.direccion}"></td>
+                            <td th:text="${#dates.format(edificio.fechaAlta, 'dd-MM-yyyy')}"></td>
+                            <td th:text="${#dates.format(edificio.fechaModificacion, 'dd-MM-yyyy')}"></td>
+                            <td>Eliminar</td>
+                        </tr>
+                    </tbody>
+                </table>
+                  <!-- Fin Lista de Edificios -->
+            </div>
+            
+
+            
+            <div class="col-6">
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- JS -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

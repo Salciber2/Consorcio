@@ -1,0 +1,4 @@
+Repositorios:
+    Formas de escribir las queries en el nombre del método
+    https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query
+    -methods.query-creation
