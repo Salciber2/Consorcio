@@ -15,20 +15,21 @@ import ar.com.sal.consorcio.repositories.EdificioRepository;
 
 @Controller
 public class EdificioController {
-
     @Autowired
     private EdificioRepository edificioRepository;
 
     private String mensajeEdificio = "Ingrese un nuevo edificio...";
 
+
     @GetMapping("/edificios")
-    public String getEdificios(Model model) {
+    public String getEdificios(@RequestParam(name = "buscarEdificio", defaultValue = "", required = false) String buscarEdificio, Model model) {
         model.addAttribute("mensajeEdificio", mensajeEdificio);
         model.addAttribute("edificio", new Edificio());
         model.addAttribute("likeDireccion",
                             ((List<Edificio>) edificioRepository.findAll())
                                 .stream()
-                                .filter(Edificio::isActivo));
+                                .filter(Edificio::isActivo)
+                                .filter(e -> e.getDireccion().toLowerCase().contains(buscarEdificio.toLowerCase())));
         return "edificios";
     }
 
@@ -49,15 +50,15 @@ public class EdificioController {
     }
 
     @PostMapping("/edificiosRemove")
-    public String edificiosRemove(@RequestParam(name = "idBorrar", defaultValue = "0", required = false) int idBorrar){
+    public String edificiosRemove(@RequestParam(name = "idBorrarEdificio", defaultValue = "0", required = false) int idBorrarEdificio){
         try {
-            Edificio edificio = edificioRepository.findById(idBorrar).get();
+            Edificio edificio = edificioRepository.findById(idBorrarEdificio).get();
             edificio.setActivo(false);
             edificioRepository.save(edificio);
-            mensajeEdificio = "El edificio con id: " + idBorrar + " fue eliminado";
+            mensajeEdificio = "El edificio con id: " + idBorrarEdificio + " fue eliminado";
         } catch (Exception e) {
-            mensajeEdificio = "No se pudo borrar el edificio con id: " + idBorrar;
+            mensajeEdificio = "No se pudo borrar el edificio con id: " + idBorrarEdificio;
         }
         return "redirect:edificios";     
-    }    
+    }
 }

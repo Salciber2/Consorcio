@@ -10,14 +10,16 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "edificios")
-public class Edificio implements Comparable<Edificio>{
+@Table(name = "departamentos")
+public class Departamento implements Comparable<Departamento>{
     // Atributos
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private int id;
-    private String direccion;
+    private int numero;
+    private int idEdificio; // TODO Cambiar a relación objeto
+    private String comentario;
     private boolean activo;
     @Column(name = "fecha_alta")
     private LocalDateTime fechaAlta;
@@ -25,18 +27,22 @@ public class Edificio implements Comparable<Edificio>{
     private LocalDateTime fechaModificacion;
 
     // Constructores
-    public Edificio() {
+    public Departamento() {
         inicializarParametrosPredeterminados();
     }
-    
-    public Edificio(String direccion) {
-        this.direccion = direccion;
+
+    public Departamento(int numero, int idEdificio, String comentario) {
+        this.numero = numero;
+        this.idEdificio = idEdificio;
+        this.comentario = comentario;
         inicializarParametrosPredeterminados();
     }
-    
-    public Edificio(int id, String direccion) {
+
+    public Departamento(int id, int numero, int idEdificio, String comentario) {
         this.id = id;
-        this.direccion = direccion;
+        this.numero = numero;
+        this.idEdificio = idEdificio;
+        this.comentario = comentario;
         inicializarParametrosPredeterminados();
     }
 
@@ -50,13 +56,14 @@ public class Edificio implements Comparable<Edificio>{
     // toString - compareTo - Getters - Setters
     @Override
     public String toString() {
-        return "Edificio [id=" + id + ", direccion=" + direccion + ", activo=" + activo + ", fechaAlta=" + fechaAlta
-                + ", fechaModificacion=" + fechaModificacion + "]";
+        return "Departamento [id=" + id + ", numero=" + numero + ", idEdificio=" + idEdificio + ", comentario="
+                + comentario + ", activo=" + activo + ", fechaAlta=" + fechaAlta + ", fechaModificacion="
+                + fechaModificacion + "]";
     }
 
     @Override
-    public int compareTo(Edificio edificio){
-        return this.toString().compareTo(edificio.toString());
+    public int compareTo(Departamento departamento){
+        return this.toString().compareTo(departamento.toString());
     }
 
     public int getId() {
@@ -67,12 +74,28 @@ public class Edificio implements Comparable<Edificio>{
         this.id = id;
     }
 
-    public String getDireccion() {
-        return direccion;
+    public int getNumero() {
+        return numero;
     }
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
+    public int getIdEdificio() {
+        return idEdificio;
+    }
+
+    public void setIdEdificio(int idEdificio) {
+        this.idEdificio = idEdificio;
+    }
+
+    public String getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
     }
 
     public boolean isActivo() {
@@ -97,5 +120,6 @@ public class Edificio implements Comparable<Edificio>{
 
     public void setFechaModificacion(LocalDateTime fechaModificacion) {
         this.fechaModificacion = fechaModificacion;
-    }    
+    }
+    
 }

@@ -18,67 +18,68 @@
         <h1 class="titulo">Administración de Edificios</h1>
 
         <div class="row">
-            <div class="col-6">
-                <!-- Formulario Alta de Edificios -->
-                <div class="my-4">
-                    <form method="post" th:object="${edificio}" th:action="@{/edificiosSave}">
-                        <h2>Agregar Edificio</h2>
-                        <div class="alert alert-info" role="alert" th:text="${mensajeEdificio}"></div>                      
-                        <div class="mb-3">
-                            <label for="direccion" class="form-label">Direccion</label>
-                            <input type="text" class="form-control" id="direccion" th:field="*{direccion}" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Agregar</button>
-                        <button type="reset" class="btn btn-danger">Limpiar</button>
-                    </form>
-                </div>
-                <!-- Fin Formulario Alta de Edificios -->
-
-                <!-- Lista de Edificios -->
-                <div class="my-4">
-                    <h2>Lista de edificios</h2>
-
-                    <form class="d-flex" role="search"> 
-                        <input type="search" class="form-control me-2" id="buscar" placeholder="Edificio" required>
-                        <button type="submit" class="btn btn-outline-primary">Buscar</button>
-                    </form>
-
-                    <table class="table align-middle">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Dirección</th>
-                                <th scope="col">Creado</th>
-                                <th scope="col">Modificado</th>
-                                <th scope="col">Eliminar</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr th:each="edificio : ${likeDireccion}">
-                                <th scope="row" th:text="${edificio.id}"></th>
-                                <td th:text="${edificio.direccion}"></td>
-                                <td th:text="${#temporals.format(edificio.fechaAlta, 'dd-MM-yyyy HH:mm')}"></td>
-                                <td th:text="${#temporals.format(edificio.fechaModificacion, 'dd-MM-yyyy HH:mm')}"></td>
-                                <td class="text-center">
-                                    <form method="post" th:action="@{/edificiosRemove}">
-                                        <input type="text" th:value="${edificio.id}" name="idBorrar" hidden>
-                                        <button type="submit" class="btn btn-danger">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                  <!-- Fin Lista de Edificios -->
+            <!-- Formulario Alta de Edificios -->
+            <div class="my-4">
+                <h2>Agregar Edificio</h2>
+                <div class="alert alert-info" role="alert" th:text="${mensajeEdificio}"></div>
+                <form method="post" th:object="${edificio}" th:action="@{/edificiosSave}">
+                    <div class="mb-3">
+                        <label for="direccion" class="form-label">Direccion</label>
+                        <input type="text" class="form-control" id="direccion" th:field="*{direccion}" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Agregar</button>
+                    <button type="reset" class="btn btn-danger">Limpiar</button>
+                </form>
             </div>
-            
+            <!-- Fin Formulario Alta de Edificios -->
 
-            
-            <div class="col-6">
+            <!-- Lista de Edificios -->
+            <div class="my-4">
+                <h3>Lista de edificios</h3>
+
+                <form class="d-flex" role="search">
+                    <input type="search" class="form-control me-2" name="buscarEdificio" placeholder="Edificio" aria-label="Search" required>
+                    <button type="submit" class="btn btn-outline-primary">Buscar</button>
+                </form>
+
+                <table class="table align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Dirección</th>
+                            <th scope="col">Creado</th>
+                            <th scope="col">Modificado</th>
+                            <th scope="col">Ver</th>
+                            <th scope="col">Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="edificio : ${likeDireccion}">
+                            <th scope="row" th:text="${edificio.id}"></th>
+                            <td th:text="${edificio.direccion}"></td>
+                            <td th:text="${#temporals.format(edificio.fechaAlta, 'dd-MM-yyyy HH:mm')}"></td>
+                            <td th:text="${#temporals.format(edificio.fechaModificacion, 'dd-MM-yyyy HH:mm')}"></td>
+                            <td>
+                                <form th:action="@{/departamentos}">
+                                    <input type="text" th:value="${edificio.id}" name="idEdificio" hidden>
+                                    <button type="submit" class="btn btn-info">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                </form>
+                            </td>
+                            <td>
+                                <form method="post" th:action="@{/edificiosRemove}">
+                                    <input type="text" th:value="${edificio.id}" name="idBorrarEdificio" hidden>
+                                    <button type="submit" class="btn btn-danger">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            
+            <!-- Fin Lista de Edificios -->            
         </div>
     </div>
 
