@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edificios</title>
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -42,7 +43,7 @@
                         <button type="submit" class="btn btn-outline-primary">Buscar</button>
                     </form>
 
-                    <table class="table">
+                    <table class="table align-middle">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -58,7 +59,14 @@
                                 <td th:text="${edificio.direccion}"></td>
                                 <td th:text="${#temporals.format(edificio.fechaAlta, 'dd-MM-yyyy HH:mm')}"></td>
                                 <td th:text="${#temporals.format(edificio.fechaModificacion, 'dd-MM-yyyy HH:mm')}"></td>
-                                <td>Eliminar</td>
+                                <td class="text-center">
+                                    <form method="post" th:action="@{/edificiosRemove}">
+                                        <input type="text" th:value="${edificio.id}" name="idBorrar" hidden>
+                                        <button type="submit" class="btn btn-danger">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

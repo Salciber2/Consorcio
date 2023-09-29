@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import ar.com.sal.consorcio.entities.Edificio;
 import ar.com.sal.consorcio.repositories.EdificioRepository;
@@ -46,5 +47,17 @@ public class EdificioController {
         }
         return "redirect:edificios";
     }
-    
+
+    @PostMapping("/edificiosRemove")
+    public String edificiosRemove(@RequestParam(name = "idBorrar", defaultValue = "0", required = false) int idBorrar){
+        try {
+            Edificio edificio = edificioRepository.findById(idBorrar).get();
+            edificio.setActivo(false);
+            edificioRepository.save(edificio);
+            mensajeEdificio = "El edificio con id: " + idBorrar + " fue eliminado";
+        } catch (Exception e) {
+            mensajeEdificio = "No se pudo borrar el edificio con id: " + idBorrar;
+        }
+        return "redirect:edificios";     
+    }    
 }
