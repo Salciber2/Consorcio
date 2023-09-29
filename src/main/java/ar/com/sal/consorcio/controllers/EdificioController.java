@@ -27,7 +27,7 @@ public class EdificioController {
         model.addAttribute("likeDireccion",
                             ((List<Edificio>) edificioRepository.findAll())
                                 .stream()
-                                );
+                                .filter(Edificio::isActivo));
         return "edificios";
     }
 

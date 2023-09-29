@@ -2,8 +2,6 @@ package ar.com.sal.consorcio.entities;
 
 import java.time.LocalDateTime;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,14 +19,16 @@ public class Edificio implements Comparable<Edificio>{
     private int id;
     private String direccion;
     private boolean activo;
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
     @Column(name = "fecha_alta")
     private LocalDateTime fechaAlta;
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
     @Column(name = "fecha_modificacion")
     private LocalDateTime fechaModificacion;
 
-    public Edificio() {}
+    public Edificio() {
+        this.activo = true;
+        this.fechaAlta = LocalDateTime.now();
+        this.fechaModificacion = fechaAlta;
+    }
     
     public Edificio(String direccion) {
         this.direccion = direccion;
