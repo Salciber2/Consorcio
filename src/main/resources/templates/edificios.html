@@ -20,13 +20,13 @@
         <div class="row">
             <div class="col-sm-6">
                 <!-- Formulario Alta de Edificios -->
-                <div class="my-4">
+                <div class="my-4 alert alert-secondary">
                     <h2>Agregar Edificio</h2>
                     <div class="alert alert-info" role="alert" th:text="${mensajeEdificio}"></div>
                     <form method="post" th:object="${edificio}" th:action="@{/edificiosSave}">
                         <div class="mb-3">
                             <label for="direccion" class="form-label">Direccion</label>
-                            <input type="text" class="form-control" name="direccion" th:field="*{direccion}" required>
+                            <input type="text" class="form-control" th:field="*{direccion}" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Agregar</button>
                         <button type="reset" class="btn btn-danger">Limpiar</button>
@@ -39,7 +39,7 @@
                     <h3>Lista de edificios</h3>
     
                     <!-- Inicio Formulario de Búsqueda de Edificios -->
-                    <form role="search" class="alert alert-secondary">
+                    <form role="search" class="alert alert-light">
                         <div class="d-flex">                            
                             <input type="search" class="form-control me-2" name="buscarEdificio" placeholder="Dirección edificio" aria-label="Search">
                             <button type="submit" class="btn btn-outline-primary">Buscar</button>
@@ -59,7 +59,7 @@
                                 <th scope="col">Creado</th>
                                 <th scope="col">Modificado</th>
                                 -->
-                                <th scope="col">Ver</th>
+                                <th scope="col">Departamentos</th>
                                 <th scope="col">Eliminar</th>
                             </tr>
                         </thead>
@@ -75,7 +75,7 @@
                                 <td>
                                     <form th:action="@{/edificios}">
                                         <input type="text" th:value="${edificio.id}" name="idEdificio" hidden>
-                                        <button type="submit" class="btn btn-info">
+                                        <button type="submit" class="btn btn-info col-sm-12">
                                             <i class="bi bi-eye"></i>
                                         </button>
                                     </form>
@@ -83,7 +83,7 @@
                                 <td>
                                     <form method="post" th:action="@{/edificiosRemove}">
                                         <input type="text" th:value="${edificio.id}" name="idBorrarEdificio" hidden>
-                                        <button type="submit" class="btn btn-danger">
+                                        <button type="submit" class="btn btn-danger col-sm-12">
                                             <i class="bi bi-trash"></i>
                                         </button>
                                     </form>
@@ -97,7 +97,7 @@
 
             <div class="col-sm-6">                
                 <!-- Formulario Alta de Departamentos -->
-                <div class="my-4">
+                <div class="my-4 alert alert-secondary">
                     <h2>Agregar Departamento</h2>
                     <div class="alert alert-info" role="alert" th:text="${mensajeDepartamento}"></div>
                     <form method="post" th:object="${departamento}" th:action="@{/departamentosSave}">
@@ -123,7 +123,7 @@
                     <h3>Lista de Departamentos</h3>
     
                     <!-- Inicio Formulario de Búsqueda de Departamentos -->
-                    <form role="search" class="alert alert-secondary">
+                    <form role="search" class="alert alert-light">
                         <input type="checkbox" class="form-check-input me-2 align-baseline" name="buscarDepartamentoActivo" id="buscarDepartamentoActivo" aria-label="Search">
                         <label for="buscarDepartamentoActivo" class="form-label me-2">Buscar activos</label>
                         <input type="checkbox" class="form-check-input me-2 align-baseline" name="buscarDepartamentoInactivo" id="buscarDepartamentoInactivo" aria-label="Search">
@@ -161,7 +161,7 @@
                                     <form method="post" th:action="@{/departamentosRemove}">
                                         <input type="text" th:value="${departamento.id}" name="idBorrarDepartamento" hidden>
                                         <input type="number" th:value="${idEdificioActual}" name="idEdificio" id="idEdificio" hidden>
-                                        <button type="submit" class="btn btn-danger">
+                                        <button type="submit" class="btn btn-danger col-sm-12">
                                             <i class="bi bi-trash"></i>
                                         </button>
                                     </form>

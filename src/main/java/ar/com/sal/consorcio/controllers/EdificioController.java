@@ -24,11 +24,10 @@ public class EdificioController {
     private DepartamentoRepository departamentoRepository;
 
     private Edificio edificioActual;
+    String url = "";
 
     private String mensajeEdificio = "Ingrese un nuevo edificio...";
     private String mensajeDepartamento = "Ingrese un nuevo departamento...";
-
-    String url = "";
 
     @GetMapping("/edificios")
     public String getEdificios(@RequestParam(name = "buscarEdificio", defaultValue = "", required = false) String buscarEdificio,
