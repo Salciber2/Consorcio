@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -18,7 +19,7 @@ public class Departamento implements Comparable<Departamento>{
     @Column(unique = true, nullable = false)
     private int id;
     private int numero;
-    private int idEdificio; // TODO Cambiar a relación objeto
+    private int idEdificio; // TODO Cambiar a relación objeto    
     private String comentario;
     private boolean activo;
     @Column(name = "fecha_alta")

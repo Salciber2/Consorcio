@@ -23,10 +23,18 @@
                 <div class="my-4 alert alert-secondary">
                     <h2>Agregar Persona</h2>
                     <div class="alert alert-info" role="alert" th:text="${mensajePersona}"></div>
-                    <form method="post" th:object="${persona}">
+                    <form method="post" th:object="${persona}" th:action="@{/personasSave}">
                         <div class="mb-3">
                             <label for="nombre" class="form-label">Nombre</label>
                             <input type="text" class="form-control" th:field="*{nombre}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="apellido" class="form-label">Apellido</label>
+                            <input type="text" class="form-control" th:field="*{apellido}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="comentario" class="form-label">Comentario</label>
+                            <textarea class="form-control" name="comentario" th:field="*{comentario}" rows="3"></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Agregar</button>
                         <button type="reset" class="btn btn-danger">Limpiar</button>
@@ -36,16 +44,16 @@
     
                 <!-- Lista de Personas -->
                 <div class="my-4">
-                    <h3>Lista de edificios</h3>
+                    <h3>Lista de personas</h3>
     
                     <!-- Inicio Formulario de Búsqueda de Edificios -->
                     <form role="search" class="alert alert-light">
                         <div class="d-flex">                            
-                            <input type="search" class="form-control me-2" name="buscarEdificio" placeholder="Dirección edificio" aria-label="Search">
+                            <input type="search" class="form-control me-2" name="buscarPersona" placeholder="Nombre persona" aria-label="Search">
                             <button type="submit" class="btn btn-outline-primary">Buscar</button>
                         </div>
-                        <input type="checkbox" class="form-check-input me-2" name="buscarEdificioInactivo" id="buscarEdificioInactivo" aria-label="Search">
-                        <label for="buscarEdificioInactivo" class="form-label">Buscar inactivos</label>
+                        <input type="checkbox" class="form-check-input me-2" name="buscarPersonaInactiva" id="buscarPersonaInactiva" aria-label="Search">
+                        <label for="buscarPersonaInactiva" class="form-label">Buscar inactivas</label>
                     </form>
                     <!-- Fin Formulario de Búsqueda de Edificios -->
     
@@ -53,7 +61,9 @@
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Dirección</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Apellido</th>
+                                <th scope="col">Comentario</th>
                                 <th scope="col">Activo</th>
                                 <!--
                                 <th scope="col">Creado</th>
@@ -64,25 +74,23 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="edificio : ${likeDireccion}">
-                                <th scope="row" th:text="${edificio.id}"></th>
-                                <td th:text="${edificio.direccion}"></td>
-                                <td th:text="${edificio.activo} ? 'Si' : 'No'"></td>
-                                <!--
-                                <td th:text="${#temporals.format(edificio.fechaAlta, 'dd-MM-yyyy HH:mm')}"></td>
-                                <td th:text="${#temporals.format(edificio.fechaModificacion, 'dd-MM-yyyy HH:mm')}"></td>
-                                -->
+                            <tr th:each="persona : ${likeNombre}">
+                                <th scope="row" th:text="${persona.id}"></th>
+                                <td th:text="${persona.nombre}"></td>
+                                <td th:text="${persona.apellido}"></td>
+                                <td th:text="${persona.comentario}"></td>
+                                <td th:text="${persona.activo} ? 'Si' : 'No'"></td>
                                 <td>
-                                    <form th:action="@{/edificios}">
-                                        <input type="text" th:value="${edificio.id}" name="idEdificio" hidden>
+                                    <form th:action="@{/personas}">
+                                        <input type="text" th:value="${persona.id}" name="idPersona" hidden>
                                         <button type="submit" class="btn btn-info col-sm-12">
                                             <i class="bi bi-eye"></i>
                                         </button>
                                     </form>
                                 </td>
                                 <td>
-                                    <form method="post" th:action="@{/edificiosRemove}">
-                                        <input type="text" th:value="${edificio.id}" name="idBorrarEdificio" hidden>
+                                    <form method="post" th:action="@{/personasRemove}">
+                                        <input type="text" th:value="${persona.id}" name="idBorrarPersona" hidden>
                                         <button type="submit" class="btn btn-danger col-sm-12">
                                             <i class="bi bi-trash"></i>
                                         </button>
