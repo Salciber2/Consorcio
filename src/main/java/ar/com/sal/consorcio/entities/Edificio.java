@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -19,6 +18,7 @@ public class Edificio implements Comparable<Edificio>{
     @Column(unique = true, nullable = false)
     private int id;
     private String direccion;
+    private String comentario;
     private boolean activo;
     @Column(name = "fecha_alta")
     private LocalDateTime fechaAlta;
@@ -30,14 +30,16 @@ public class Edificio implements Comparable<Edificio>{
         inicializarParametrosPredeterminados();
     }
     
-    public Edificio(String direccion) {
+    public Edificio(String direccion, String comentario) {
         this.direccion = direccion;
+        this.comentario = comentario;
         inicializarParametrosPredeterminados();
     }
     
-    public Edificio(int id, String direccion) {
+    public Edificio(int id, String direccion, String comentario) {
         this.id = id;
         this.direccion = direccion;
+        this.comentario = comentario;
         inicializarParametrosPredeterminados();
     }
 
@@ -51,7 +53,7 @@ public class Edificio implements Comparable<Edificio>{
     // toString - compareTo - Getters - Setters
     @Override
     public String toString() {
-        return "Edificio [id=" + id + ", direccion=" + direccion + ", activo=" + activo + ", fechaAlta=" + fechaAlta
+        return "Edificio [id=" + id + ", direccion=" + direccion + ",comentario=" + comentario + ", activo=" + activo + ", fechaAlta=" + fechaAlta
                 + ", fechaModificacion=" + fechaModificacion + "]";
     }
 
@@ -74,6 +76,14 @@ public class Edificio implements Comparable<Edificio>{
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
+    }
+
+    public String getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
     }
 
     public boolean isActivo() {

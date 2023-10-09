@@ -10,16 +10,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ar.com.sal.consorcio.entities.Departamento;
+import ar.com.sal.consorcio.entities.Edificio;
 import ar.com.sal.consorcio.entities.Persona;
 import ar.com.sal.consorcio.repositories.DepartamentoRepository;
+import ar.com.sal.consorcio.repositories.EdificioRepository;
+import ar.com.sal.consorcio.repositories.PersonaDepartamentoRepository;
 import ar.com.sal.consorcio.repositories.PersonaRepository;
 
 @Controller
 public class PersonaController {
     @Autowired
     private PersonaRepository personaRepository;
-    @Autowired
-    private DepartamentoRepository departamentoRepository;
 
     private Persona personaActual;
     String url = "";
@@ -35,13 +37,12 @@ public class PersonaController {
         // Lista personas
         model.addAttribute("mensajePersona", mensajePersona);
         model.addAttribute("persona", new Persona());
+        model.addAttribute("cantidadPersonas", personaRepository.count());
         model.addAttribute("likeNombre",
                             ((List<Persona>) personaRepository.findAll())
                                 .stream()                                
                                 .filter(p -> p.getNombre().toLowerCase().contains(buscarPersona.toLowerCase()))
                                 .filter(p -> p.isActivo() != buscarPersonaInactiva));
-
-        // Lista departamentos
 
         return "personas";
     }

@@ -28,6 +28,10 @@
                             <label for="direccion" class="form-label">Direccion</label>
                             <input type="text" class="form-control" th:field="*{direccion}" required>
                         </div>
+                        <div class="mb-3">
+                            <label for="comentario" class="form-label">Comentario</label>
+                            <textarea class="form-control" name="comentario" th:field="*{comentario}" rows="3"></textarea>
+                        </div>
                         <button type="submit" class="btn btn-primary">Agregar</button>
                         <button type="reset" class="btn btn-danger">Limpiar</button>
                     </form>
@@ -36,7 +40,7 @@
     
                 <!-- Lista de Edificios -->
                 <div class="my-4">
-                    <h3>Lista de edificios</h3>
+                    <h3>Lista de edificios - <span th:text="${cantidadEdificios}"></span></h3>
     
                     <!-- Inicio Formulario de Búsqueda de Edificios -->
                     <form role="search" class="alert alert-light">
@@ -54,6 +58,7 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Dirección</th>
+                                <th scope="col">Comentario</th>
                                 <th scope="col">Activo</th>
                                 <!--
                                 <th scope="col">Creado</th>
@@ -67,6 +72,7 @@
                             <tr th:each="edificio : ${likeDireccion}">
                                 <th scope="row" th:text="${edificio.id}"></th>
                                 <td th:text="${edificio.direccion}"></td>
+                                <td th:text="${edificio.comentario}"></td>
                                 <td th:text="${edificio.activo} ? 'Si' : 'No'"></td>
                                 <!--
                                 <td th:text="${#temporals.format(edificio.fechaAlta, 'dd-MM-yyyy HH:mm')}"></td>
@@ -120,7 +126,7 @@
                 
                 <!-- Lista de Departamentos -->
                 <div class="my-4">
-                    <h3>Lista de Departamentos</h3>
+                    <h3>Lista de Departamentos - <span th:text="${cantidadDepartamentos}"></span></h3>
     
                     <!-- Inicio Formulario de Búsqueda de Departamentos -->
                     <form role="search" class="alert alert-light">
@@ -157,6 +163,14 @@
                                 <td th:text="${#temporals.format(departamento.fechaAlta, 'dd-MM-yyyy HH:mm')}"></td>
                                 <td th:text="${#temporals.format(departamento.fechaModificacion, 'dd-MM-yyyy HH:mm')}"></td>
                                 -->
+                                <td>
+                                    <form th:action="@{/departamento}">
+                                        <input type="text" th:value="${departamento.id}" name="idDepartamento" hidden>
+                                        <button type="submit" class="btn btn-info col-sm-12">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                    </form>
+                                </td>
                                 <td>
                                     <form method="post" th:action="@{/departamentosRemove}">
                                         <input type="text" th:value="${departamento.id}" name="idBorrarDepartamento" hidden>

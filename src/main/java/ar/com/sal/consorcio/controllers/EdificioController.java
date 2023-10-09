@@ -39,31 +39,38 @@ public class EdificioController {
         // Lista edificios
         model.addAttribute("mensajeEdificio", mensajeEdificio);
         model.addAttribute("edificio", new Edificio());
-        model.addAttribute("likeDireccion",
-                            ((List<Edificio>) edificioRepository.findAll())
+
+        Stream<Edificio> listaEdificios = ((List<Edificio>) edificioRepository.findAll())
                                 .stream()                                
                                 .filter(e -> e.getDireccion().toLowerCase().contains(buscarEdificio.toLowerCase()))
-                                .filter(e -> e.isActivo() != buscarEdificioInactivo));
+                                .filter(e -> e.isActivo() != buscarEdificioInactivo);
+        model.addAttribute("cantidadEdificios", edificioRepository.countByActivo(!buscarEdificioInactivo));
+        model.addAttribute("likeDireccion", listaEdificios);
 
         // Lista departamentos
-        model.addAttribute("departamento", new Departamento());
         model.addAttribute("mensajeDepartamento", mensajeDepartamento);
+        model.addAttribute("departamento", new Departamento());
+        
         if (idEdificio > 0) {
             edificioActual = edificioRepository.findById(idEdificio).get();
             model.addAttribute("idEdificioActual", idEdificio);
             model.addAttribute("direccionEdificioActual", edificioActual.getDireccion());
-            Stream<Departamento> listaDepartamentos = ((List<Departamento>) departamentoRepository.findAll())
-                                                        .stream()
-                                                        .filter(d -> d.getIdEdificio() == idEdificio);
+            
+            Stream<Departamento> listaDepartamentos = ((List<Departamento>) departamentoRepository.findByIdEdificio(idEdificio)).stream();
             if(buscarDepartamentoInactivo  && !buscarDepartamentoActivo) {
                 listaDepartamentos = listaDepartamentos.filter(d -> !d.isActivo());
+                model.addAttribute("cantidadDepartamentos", departamentoRepository.countByIdEdificioAndActivo(idEdificio, false));
             } else if (!buscarDepartamentoInactivo) {
                 listaDepartamentos = listaDepartamentos.filter(Departamento::isActivo);
+                model.addAttribute("cantidadDepartamentos", departamentoRepository.countByIdEdificioAndActivo(idEdificio, true));
+            } else {
+                model.addAttribute("cantidadDepartamentos", departamentoRepository.countByIdEdificio(idEdificio));
             }
             model.addAttribute("likeEdificio", listaDepartamentos);
         } else {
             model.addAttribute("idEdificioActual", 0);
             model.addAttribute("direccionEdificioActual", "Ningún edificio seleccionado");
+            model.addAttribute("cantidadDepartamentos", 0);
         }
 
         return "edificios";
@@ -89,9 +96,13 @@ public class EdificioController {
     public String edificiosRemove(@RequestParam(name = "idBorrarEdificio", defaultValue = "0", required = false) int idBorrarEdificio){
         try {
             Edificio edificio = edificioRepository.findById(idBorrarEdificio).get();
-            edificio.setActivo(false);
-            edificioRepository.save(edificio);
-            mensajeEdificio = "El edificio con id: " + idBorrarEdificio + " fue eliminado";
+            if (edificio.isActivo()) {
+                edificio.setActivo(false);
+                edificioRepository.save(edificio);
+                mensajeEdificio = "El edificio con id: " + idBorrarEdificio + " fue eliminado";
+            } else {
+                mensajeEdificio = "El edificio con id: " + idBorrarEdificio + " ya está inactivo";
+            }
         } catch (Exception e) {
             mensajeEdificio = "No se pudo borrar el edificio con id: " + idBorrarEdificio;
         }
@@ -130,10 +141,14 @@ public class EdificioController {
             Departamento departamento = departamentoRepository.findById(idBorrarDepartamento).get();
             if (departamento != null) {
                 url = "?idEdificio=" + departamento.getIdEdificio();
-                departamento.setActivo(false);
-                departamentoRepository.save(departamento);
-                mensajeDepartamento = "El departamento con id: " + idBorrarDepartamento + " fue eliminado";
-            }            
+                if (departamento.isActivo()) {
+                    departamento.setActivo(false);
+                    departamentoRepository.save(departamento);
+                    mensajeDepartamento = "El departamento con id: " + idBorrarDepartamento + " fue eliminado";                    
+                } else {
+                    mensajeDepartamento = "El departamento con id: " + idBorrarDepartamento + " ya está inactivo";
+                }
+            }
         } catch (Exception e) {
             mensajeDepartamento = "No se pudo borrar el departamento con id: " + idBorrarDepartamento;
         }
