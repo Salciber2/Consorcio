@@ -10,24 +10,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import ar.com.sal.consorcio.entities.Departamento;
-import ar.com.sal.consorcio.entities.Edificio;
 import ar.com.sal.consorcio.entities.Persona;
-import ar.com.sal.consorcio.repositories.DepartamentoRepository;
-import ar.com.sal.consorcio.repositories.EdificioRepository;
-import ar.com.sal.consorcio.repositories.PersonaDepartamentoRepository;
 import ar.com.sal.consorcio.repositories.PersonaRepository;
 
 @Controller
-public class PersonaController {
+public class PersonasController {
     @Autowired
     private PersonaRepository personaRepository;
 
-    private Persona personaActual;
-    String url = "";
-
     private String mensajePersona = "Ingrese una nueva persona...";
-    private String mensajeDepartamento = "Asocie un nuevo departamento...";
 
     @GetMapping("/personas")
     public String getPersonas(@RequestParam(name = "buscarPersona", defaultValue = "", required = false) String buscarPersona,
@@ -37,12 +28,14 @@ public class PersonaController {
         // Lista personas
         model.addAttribute("mensajePersona", mensajePersona);
         model.addAttribute("persona", new Persona());
-        model.addAttribute("cantidadPersonas", personaRepository.count());
-        model.addAttribute("likeNombre",
-                            ((List<Persona>) personaRepository.findAll())
-                                .stream()                                
-                                .filter(p -> p.getNombre().toLowerCase().contains(buscarPersona.toLowerCase()))
-                                .filter(p -> p.isActivo() != buscarPersonaInactiva));
+
+        List<Persona> listaPersonas = ((List<Persona>) personaRepository.findByActivo(!buscarPersonaInactiva))
+                                            .stream()
+                                            .filter(e -> e.getNombre().toLowerCase().contains(buscarPersona.toLowerCase())
+                                                            || e.getApellido().toLowerCase().contains(buscarPersona.toLowerCase()))
+                                            .toList();
+        model.addAttribute("cantidadPersonas", listaPersonas.size());
+        model.addAttribute("likeNombreOrApellido", listaPersonas);
 
         return "personas";
     }
@@ -57,7 +50,6 @@ public class PersonaController {
                 mensajePersona = "No se pudo guardar la persona";
             }
         } catch (Exception e) {
-            System.out.println("Error al guardar la persona: " + e);
             mensajePersona = "Error al guardar la persona";
         }
         return "redirect:personas";
@@ -67,11 +59,16 @@ public class PersonaController {
     public String personasRemove(@RequestParam(name = "idBorrarPersona", defaultValue = "0", required = false) int idBorrarPersona){
         try {
             Persona persona = personaRepository.findById(idBorrarPersona).get();
-            persona.setActivo(false);
-            personaRepository.save(persona);
-            mensajePersona = "El edificio con id: " + idBorrarPersona + " fue eliminado";
+            if(persona.isActivo()) {                
+                persona.setActivo(false);
+                personaRepository.save(persona);
+                mensajePersona = "La persona con id: " + idBorrarPersona + " fue eliminada";
+            } else {
+                mensajePersona = "La persona con id: " + idBorrarPersona + " ya está inactiva";
+
+            }
         } catch (Exception e) {
-            mensajePersona = "No se pudo borrar el edificio con id: " + idBorrarPersona;
+            mensajePersona = "No se pudo borrar la persona con id: " + idBorrarPersona;
         }
         return "redirect:personas";
     }

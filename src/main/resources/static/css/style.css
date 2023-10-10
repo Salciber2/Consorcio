@@ -1,3 +1,11 @@
 .titulo{
     text-align: center;
 }
+
+.card-body{
+    height: 240px;
+}
+
+.card-header{
+    height: 40px;
+}

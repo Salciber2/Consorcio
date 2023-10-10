@@ -31,3 +31,31 @@ The object is already closed [90007-214]
 2023-10-09 21:28:12 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: El objeto ya está cerrado
 The object is already closed [90007-214]
+2023-10-10 16:13:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: El objeto ya está cerrado
+The object is already closed [90007-214]
+2023-10-10 16:27:02 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: El objeto ya está cerrado
+The object is already closed [90007-214]
+2023-10-10 16:27:16 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Valor demasiado largo para la columna "COMENTARIO CHARACTER VARYING(255)": "'Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur nam dignis... (304)"
+Value too long for column "COMENTARIO CHARACTER VARYING(255)": "'Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur nam dignis... (304)"; SQL statement:
+insert into edificios (activo,comentario,direccion,fecha_alta,fecha_modificacion,id) values (?,?,?,?,?,default) [22001-214]
+2023-10-10 16:27:30 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: El objeto ya está cerrado
+The object is already closed [90007-214]
+2023-10-10 16:42:27 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: El objeto ya está cerrado
+The object is already closed [90007-214]
+2023-10-10 17:32:31 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: El objeto ya está cerrado
+The object is already closed [90007-214]
+2023-10-10 17:50:42 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: El objeto ya está cerrado
+The object is already closed [90007-214]
+2023-10-10 18:08:46 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: El objeto ya está cerrado
+The object is already closed [90007-214]
+2023-10-10 18:09:29 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: El objeto ya está cerrado
+The object is already closed [90007-214]
