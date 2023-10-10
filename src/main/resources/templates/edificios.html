@@ -86,7 +86,7 @@
                                         </button>
                                     </form>
                                 </td>
-                                <td>
+                                <td th:if="${edificio.activo}">
                                     <form method="post" th:action="@{/edificiosRemove}">
                                         <input type="text" th:value="${edificio.id}" name="idBorrarEdificio" hidden>
                                         <button type="submit" class="btn btn-danger col-sm-12">
@@ -150,6 +150,7 @@
                                 <th scope="col">Creado</th>
                                 <th scope="col">Modificado</th>
                                 -->
+                                <th scope="col">Ver</th>
                                 <th scope="col">Eliminar</th>
                             </tr>
                         </thead>
@@ -171,7 +172,7 @@
                                         </button>
                                     </form>
                                 </td>
-                                <td>
+                                <td th:if="${departamento.activo}">
                                     <form method="post" th:action="@{/departamentosRemove}">
                                         <input type="text" th:value="${departamento.id}" name="idBorrarDepartamento" hidden>
                                         <input type="number" th:value="${idEdificioActual}" name="idEdificio" id="idEdificio" hidden>
