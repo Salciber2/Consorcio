@@ -2,8 +2,11 @@ package ar.com.sal.consorcio.entities;
 
 import java.time.LocalDateTime;
 
+import ar.com.sal.consorcio.enums.TipoDepartamento;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -18,6 +21,9 @@ public class Departamento implements Comparable<Departamento>{
     @Column(unique = true, nullable = false)
     private int id;
     private int numero;
+    private int piso;
+    @Enumerated(value = EnumType.STRING)
+    private TipoDepartamento tipo;
     private int idEdificio; // TODO Cambiar a relación objeto    
     private String comentario;
     private boolean activo;
@@ -31,16 +37,20 @@ public class Departamento implements Comparable<Departamento>{
         inicializarParametrosPredeterminados();
     }
 
-    public Departamento(int numero, int idEdificio, String comentario) {
+    public Departamento(int numero, int piso, TipoDepartamento tipo, int idEdificio, String comentario) {
         this.numero = numero;
+        this.piso = piso;
+        this.tipo = tipo;
         this.idEdificio = idEdificio;
         this.comentario = comentario;
         inicializarParametrosPredeterminados();
     }
 
-    public Departamento(int id, int numero, int idEdificio, String comentario) {
+    public Departamento(int id, int numero, int piso, TipoDepartamento tipo, int idEdificio, String comentario) {
         this.id = id;
         this.numero = numero;
+        this.piso = piso;
+        this.tipo = tipo;
         this.idEdificio = idEdificio;
         this.comentario = comentario;
         inicializarParametrosPredeterminados();
@@ -56,9 +66,9 @@ public class Departamento implements Comparable<Departamento>{
     // toString - compareTo - Getters - Setters
     @Override
     public String toString() {
-        return "Departamento [id=" + id + ", numero=" + numero + ", idEdificio=" + idEdificio + ", comentario="
-                + comentario + ", activo=" + activo + ", fechaAlta=" + fechaAlta + ", fechaModificacion="
-                + fechaModificacion + "]";
+        return "Departamento [id=" + id + ", numero=" + numero + ", piso=" + piso + ", tipo=" + tipo + ", idEdificio="
+                + idEdificio + ", comentario=" + comentario + ", activo=" + activo + ", fechaAlta=" + fechaAlta
+                + ", fechaModificacion=" + fechaModificacion + "]";
     }
 
     @Override
@@ -80,6 +90,22 @@ public class Departamento implements Comparable<Departamento>{
 
     public void setNumero(int numero) {
         this.numero = numero;
+    }
+
+    public int getPiso() {
+        return piso;
+    }
+
+    public void setPiso(int piso) {
+        this.piso = piso;
+    }
+
+    public TipoDepartamento getTipoDepartamento() {
+        return tipo;
+    }
+
+    public void setTipoDepartamento(TipoDepartamento tipo) {
+        this.tipo = tipo;
     }
 
     public int getIdEdificio() {

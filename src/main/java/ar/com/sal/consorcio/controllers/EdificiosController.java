@@ -24,7 +24,7 @@ public class EdificiosController {
     public String getEdificios(@RequestParam(name = "buscarEdificio", defaultValue = "", required = false) String buscarEdificio,
                                 @RequestParam(name = "buscarEdificioInactivo", defaultValue = "false", required = false) Boolean buscarEdificioInactivo,
                                 Model model) {
-        // Lista edificios
+                                    
         model.addAttribute("mensajeEdificio", mensajeEdificio);
         model.addAttribute("edificio", new Edificio());
 

@@ -24,22 +24,31 @@
                 <form role="search" class="alert alert-light">
                     <h2>Buscar Departamento</h2>
                     <div class="d-flex">                            
-                        <input type="search" class="form-control me-2" name="buscarDepartamento" placeholder="Dirección edificio" aria-label="Search">
+                        <input type="search" class="form-control me-2" name="buscarDepartamento" placeholder="Numero o piso del departamento" aria-label="Search">
                         <button type="submit" class="btn btn-outline-primary">Buscar</button>
                     </div>
-                    <input type="checkbox" class="form-check-input me-2" name="buscarEdificioInactivo" id="buscarEdificioInactivo" aria-label="Search">
-                    <label for="buscarEdificioInactivo" class="form-label">Buscar inactivos</label>
+                    <input type="checkbox" class="form-check-input me-2" name="buscarDepartamentoInactivo" id="buscarDepartamentoInactivo" aria-label="Search">
+                    <label for="buscarDepartamentoInactivo" class="form-label">Buscar inactivos</label>
                 </form>
                 <!-- Fin Formulario de Búsqueda de Departamentos -->
 
                 <!-- Formulario Alta de Edificios -->
-                <form class="my-4 alert alert-secondary" method="post" th:object="${edificio}" th:action="@{/edificiosSave}">
-                    <h2>Agregar Edificio</h2>
-                    <div class="alert alert-info" role="alert" th:text="${mensajeEdificio}"></div>
+                <form class="my-4 alert alert-secondary" method="post" th:object="${departamento}">
+                    <h2>Agregar Departamento</h2>
+                    <div class="alert alert-info" role="alert" th:text="${mensajeDepartamento}"></div>
                     <div class="mb-3">
-                        <label for="direccion" class="form-label">Direccion</label>
-                        <input type="text" class="form-control" th:field="*{direccion}" required>
+                        <label for="numero" class="form-label">Numero</label>
+                        <input type="number" class="form-control" th:field="*{numero}" required>
                     </div>
+                    <div class="mb-3">
+                        <label for="piso" class="form-label">Piso</label>
+                        <input type="number" class="form-control" th:field="*{piso}" required>
+                    </div>
+                    <select class="form-select" aria-label="Tipo Departamento">
+                        <div th:each="tipo: ${tiposDepartamentos}">
+                            <option th:text="${tipo}" th:value="${tipo}"></option>
+                        </div>
+                      </select>
                     <div class="mb-3">
                         <label for="comentario" class="form-label">Comentario</label>
                         <textarea class="form-control" name="comentario" th:field="*{comentario}" rows="3"></textarea>
@@ -49,39 +58,7 @@
                 </form>
                 <!-- Fin Formulario Alta de Edificios -->
             </div>            
-            <div class="col-sm-8">                
-                <!-- Lista de Edificios -->
-                <div class="my-4">    
-                    <div class="row row-cols-1 row-cols-md-3 g-2" >
-                        <div class="col" th:each="edificio : ${likeDireccion}">
-                            <div class="card">
-                                <h5 th:class="${edificio.activo} ? 'card-header text-bg-success' : 'card-header text-bg-danger'" th:text="${edificio.id + ' - ' + edificio.direccion}"></h5>
-                                <div class="card-body overflow-hidden">
-                                    <p class="card-text" th:text="${edificio.comentario}"></p>
-                                </div>
-                                <div class="card-footer d-flex gap-2">                                        
-                                    <div class="col-sm-6">
-                                        <form th:action="@{/edificios}">
-                                            <input type="text" th:value="${edificio.id}" name="idEdificio" hidden>
-                                            <button type="submit" class="btn btn-info col-sm-12">
-                                                <i class="bi bi-eye"></i>
-                                            </button>
-                                        </form>
-                                    </div>
-                                    <div class="col-sm-6" th:if="${edificio.activo}">
-                                        <form method="post" th:action="@{/edificiosRemove}">
-                                            <input type="text" th:value="${edificio.id}" name="idBorrarEdificio" hidden>
-                                            <button type="submit" class="btn btn-danger col-sm-12">
-                                                <i class="bi bi-trash"></i>
-                                            </button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Fin Lista de Edificios -->
+            <div class="col-sm-8">
             </div>
         </div>
     </div>
