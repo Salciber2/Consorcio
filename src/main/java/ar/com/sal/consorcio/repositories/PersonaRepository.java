@@ -10,5 +10,4 @@ import ar.com.sal.consorcio.entities.Persona;
 @Repository
 public interface PersonaRepository extends CrudRepository<Persona, Integer>{    
     List<Persona> findByActivo(boolean activo);
-    long countByActivo(boolean activo);
 }

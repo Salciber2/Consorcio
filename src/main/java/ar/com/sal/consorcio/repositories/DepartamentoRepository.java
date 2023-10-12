@@ -9,8 +9,6 @@ import ar.com.sal.consorcio.entities.Departamento;
 
 @Repository
 public interface DepartamentoRepository extends CrudRepository<Departamento, Integer> {
-    List<Departamento> findByIdEdificio(int idEdificio);
     List<Departamento> findByActivo(boolean activo);
-    long countByIdEdificio(int idEdificio);
-    long countByIdEdificioAndActivo(int idEdificio, boolean activo);
+    List<Departamento> findByIdEdificioAndActivo(int idEdificio, boolean activo);
 }

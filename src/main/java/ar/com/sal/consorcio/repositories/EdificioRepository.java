@@ -16,5 +16,4 @@ public interface EdificioRepository extends CrudRepository<Edificio, Integer> {
      * 
      */
     List<Edificio> findByActivo(boolean activo);
-    long countByActivo(boolean activo);
 }

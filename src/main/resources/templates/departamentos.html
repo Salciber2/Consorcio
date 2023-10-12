@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edificio</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    
+    <div class="container">
+
+        <!-- Menú de navegación -->
+        <div th:insert="~{menu::menu}"></div>
+
+        <h1 class="titulo" th:text="${edificio.id + ' - ' + edificio.direccion}"></h1>
+
+        <div class="row">
+            <div class="col-sm-4">
+
+                <!-- Inicio Formulario de Búsqueda de Departamentos -->
+                <form role="search" class="alert alert-light">
+                    <h2>Buscar Departamento</h2>
+                    <div class="d-flex">                            
+                        <input type="search" class="form-control me-2" name="buscarDepartamento" placeholder="Numero o piso del departamento" aria-label="Search">
+                        <button type="submit" class="btn btn-outline-primary">Buscar</button>
+                    </div>
+                    <input type="checkbox" class="form-check-input me-2" name="buscarDepartamentoInactivo" id="buscarDepartamentoInactivo" aria-label="Search">
+                    <label for="buscarDepartamentoInactivo" class="form-label">Buscar inactivos</label>
+                    <input type="text" th:value="${edificio.id}" name="idEdificio" hidden>
+                </form>
+                <!-- Fin Formulario de Búsqueda de Departamentos -->
+
+                <!-- Formulario Alta de Departamentos -->
+                <form class="my-4 alert alert-secondary" method="post" th:object="${departamento}" th:action="@{/departamentosSave}">
+                    <h2>Agregar Departamento</h2>
+                    <div class="alert alert-info" role="alert" th:text="${mensajeDepartamento}"></div>
+                    <div class="mb-3">
+                        <label for="numero" class="form-label">Numero</label>
+                        <input type="number" class="form-control" th:field="*{numero}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="piso" class="form-label">Piso</label>
+                        <input type="number" class="form-control" th:field="*{piso}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tipo" class="form-label">Tipo</label>
+                        <select class="form-select" aria-label="Tipo Departamento">
+                            <option th:each="tipo: ${tiposDepartamentos}" th:text="${tipo}" th:value="${tipo}"></option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="comentario" class="form-label">Comentario</label>
+                        <textarea class="form-control" name="comentario" th:field="*{comentario}" rows="3"></textarea>
+                    </div>
+
+                    <input type="number" class="form-control" th:value="${edificio.id}" th:name="idEdificio" th:id="idEdificio" hidden>
+
+                    <button type="submit" class="btn btn-primary">Agregar</button>
+                    <button type="reset" class="btn btn-danger">Limpiar</button>
+                </form>
+                <!-- Fin Formulario Alta de Departamentos -->
+            </div>            
+            <div class="col-sm-8">
+                <!-- Lista de Departamentos -->
+                <div class="my-4">    
+                    <div class="row row-cols-1 row-cols-md-3 g-2" >
+                        <div class="col" th:each="departamento : ${departamentos}">
+                            <div class="card">
+                                <h5 th:class="${departamento.activo} ? 'card-header text-bg-success' : 'card-header text-bg-danger'" th:text="${departamento.id + ' - Piso:' + departamento.piso + ', Dpto:' + departamento.numero}"></h5>
+                                <div class="card-body overflow-hidden">
+                                    <p class="card-text" th:text="${departamento.comentario}"></p>
+                                </div>
+                                <div class="card-footer d-flex gap-2">                                        
+                                    <div class="col-sm-6">
+                                        <form>
+                                            <input type="text" th:value="${departamento.id}" name="idDepartamento" hidden>
+                                            <button type="submit" class="btn btn-info col-sm-12">
+                                                <i class="bi bi-eye"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <div class="col-sm-6" th:if="${departamento.activo}">
+                                        <form method="post" th:action="@{/departamentosRemove}">
+                                            <input type="text" th:value="${departamento.id}" name="idBorrarDepartamento" hidden>
+                                            <button type="submit" class="btn btn-danger col-sm-12">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Fin Lista de Departamentos -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JS -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
