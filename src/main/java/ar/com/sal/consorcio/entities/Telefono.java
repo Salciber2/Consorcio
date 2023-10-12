@@ -31,19 +31,23 @@ public class Telefono implements Comparable<Telefono>{
         inicializarParametrosPredeterminados();
     }
 
-    public Telefono(int numero, int idPersona, String comentario) {
+    public Telefono(int numero, int idPersona, String comentario, boolean activo, LocalDateTime fechaAlta, LocalDateTime fechaModificacion) {
         this.numero = numero;
         this.idPersona = idPersona;
         this.comentario = comentario;
-        inicializarParametrosPredeterminados();
+        this.activo = activo;
+        this.fechaAlta = fechaAlta;
+        this.fechaModificacion = fechaModificacion;
     }
 
-    public Telefono(int id, int numero, int idPersona, String comentario) {
+    public Telefono(int id, int numero, int idPersona, String comentario, boolean activo, LocalDateTime fechaAlta, LocalDateTime fechaModificacion) {
         this.id = id;
         this.numero = numero;
         this.idPersona = idPersona;
         this.comentario = comentario;
-        inicializarParametrosPredeterminados();
+        this.activo = activo;
+        this.fechaAlta = fechaAlta;
+        this.fechaModificacion = fechaModificacion;
     }
 
     // Métodos

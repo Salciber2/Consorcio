@@ -37,23 +37,29 @@ public class Departamento implements Comparable<Departamento>{
         inicializarParametrosPredeterminados();
     }
 
-    public Departamento(int numero, int piso, TipoDepartamento tipo, int idEdificio, String comentario) {
+    public Departamento(int numero, int piso, TipoDepartamento tipo, int idEdificio, String comentario, boolean activo,
+                            LocalDateTime fechaAlta, LocalDateTime fechaModificacion) {
         this.numero = numero;
         this.piso = piso;
         this.tipo = tipo;
         this.idEdificio = idEdificio;
         this.comentario = comentario;
-        inicializarParametrosPredeterminados();
+        this.activo = activo;
+        this.fechaAlta = fechaAlta;
+        this.fechaModificacion = fechaModificacion;
     }
 
-    public Departamento(int id, int numero, int piso, TipoDepartamento tipo, int idEdificio, String comentario) {
+    public Departamento(int id, int numero, int piso, TipoDepartamento tipo, int idEdificio, String comentario, boolean activo,
+                            LocalDateTime fechaAlta, LocalDateTime fechaModificacion) {
         this.id = id;
         this.numero = numero;
         this.piso = piso;
         this.tipo = tipo;
         this.idEdificio = idEdificio;
         this.comentario = comentario;
-        inicializarParametrosPredeterminados();
+        this.activo = activo;
+        this.fechaAlta = fechaAlta;
+        this.fechaModificacion = fechaModificacion;
     }
 
     // Métodos

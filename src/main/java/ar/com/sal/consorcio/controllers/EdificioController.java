@@ -32,7 +32,7 @@ public class EdificioController {
         model.addAttribute("mensajeDepartamento", mensajeDepartamento);
         model.addAttribute("edificio", new Edificio());
         model.addAttribute("departamento", new Departamento());
-        model.addAttribute("tiposDepartamentos", TipoDepartamento.values());
+        model.addAttribute("tiposDepartamento", TipoDepartamento.values());
 
         Edificio edificioActual = edificioRepository.findById(idEdificio).get();
         if(edificioActual != null) {

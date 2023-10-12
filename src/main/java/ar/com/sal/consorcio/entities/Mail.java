@@ -31,19 +31,23 @@ public class Mail implements Comparable<Mail>{
         inicializarParametrosPredeterminados();
     }
 
-    public Mail(String direccion, int idPersona, String comentario) {
+    public Mail(String direccion, int idPersona, String comentario, boolean activo, LocalDateTime fechaAlta, LocalDateTime fechaModificacion) {
         this.direccion = direccion;
         this.idPersona = idPersona;
         this.comentario = comentario;
-        inicializarParametrosPredeterminados();
+        this.activo = activo;
+        this.fechaAlta = fechaAlta;
+        this.fechaModificacion = fechaModificacion;
     }
 
-    public Mail(int id, String direccion, int idPersona, String comentario) {
+    public Mail(int id, String direccion, int idPersona, String comentario, boolean activo, LocalDateTime fechaAlta, LocalDateTime fechaModificacion) {
         this.id = id;
         this.direccion = direccion;
         this.idPersona = idPersona;
         this.comentario = comentario;
-        inicializarParametrosPredeterminados();
+        this.activo = activo;
+        this.fechaAlta = fechaAlta;
+        this.fechaModificacion = fechaModificacion;
     }
 
     // Métodos

@@ -30,17 +30,21 @@ public class Edificio implements Comparable<Edificio>{
         inicializarParametrosPredeterminados();
     }
     
-    public Edificio(String direccion, String comentario) {
+    public Edificio(String direccion, String comentario, boolean activo, LocalDateTime fechaAlta, LocalDateTime fechaModificacion) {
         this.direccion = direccion;
         this.comentario = comentario;
-        inicializarParametrosPredeterminados();
+        this.activo = activo;
+        this.fechaAlta = fechaAlta;
+        this.fechaModificacion = fechaModificacion;
     }
     
-    public Edificio(int id, String direccion, String comentario) {
+    public Edificio(int id, String direccion, String comentario, boolean activo, LocalDateTime fechaAlta, LocalDateTime fechaModificacion) {
         this.id = id;
         this.direccion = direccion;
         this.comentario = comentario;
-        inicializarParametrosPredeterminados();
+        this.activo = activo;
+        this.fechaAlta = fechaAlta;
+        this.fechaModificacion = fechaModificacion;
     }
 
     // Métodos

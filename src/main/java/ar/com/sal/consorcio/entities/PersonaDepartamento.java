@@ -36,19 +36,25 @@ public class PersonaDepartamento implements Comparable<PersonaDepartamento>{
         inicializarParametrosPredeterminados();
     }
 
-    public PersonaDepartamento(int idPersona, int idDepartamento, Relacion relacion) {
+    public PersonaDepartamento(int idPersona, int idDepartamento, Relacion relacion, boolean activo,
+                                LocalDateTime fechaAlta, LocalDateTime fechaModificacion) {
         this.idPersona = idPersona;
         this.idDepartamento = idDepartamento;
         this.relacion = relacion;
-        inicializarParametrosPredeterminados();
+        this.activo = activo;
+        this.fechaAlta = fechaAlta;
+        this.fechaModificacion = fechaModificacion;
     }
 
-    public PersonaDepartamento(int id, int idPersona, int idDepartamento, Relacion relacion) {
+    public PersonaDepartamento(int id, int idPersona, int idDepartamento, Relacion relacion, boolean activo,
+                                LocalDateTime fechaAlta, LocalDateTime fechaModificacion) {
         this.id = id;
         this.idPersona = idPersona;
         this.idDepartamento = idDepartamento;
         this.relacion = relacion;
-        inicializarParametrosPredeterminados();
+        this.activo = activo;
+        this.fechaAlta = fechaAlta;
+        this.fechaModificacion = fechaModificacion;
     }
 
     // Métodos

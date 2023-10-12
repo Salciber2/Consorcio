@@ -31,19 +31,23 @@ public class Persona implements Comparable<Persona>{
         inicializarParametrosPredeterminados();
     }
 
-    public Persona(String nombre, String apellido, String comentario) {
+    public Persona(String nombre, String apellido, String comentario, boolean activo, LocalDateTime fechaAlta, LocalDateTime fechaModificacion) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.comentario = comentario;
-        inicializarParametrosPredeterminados();
+        this.activo = activo;
+        this.fechaAlta = fechaAlta;
+        this.fechaModificacion = fechaModificacion;
     }
 
-    public Persona(int id, String nombre, String apellido, String comentario) {
+    public Persona(int id, String nombre, String apellido, String comentario, boolean activo, LocalDateTime fechaAlta, LocalDateTime fechaModificacion) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.comentario = comentario;
-        inicializarParametrosPredeterminados();
+        this.activo = activo;
+        this.fechaAlta = fechaAlta;
+        this.fechaModificacion = fechaModificacion;
     }
 
     // Métodos
