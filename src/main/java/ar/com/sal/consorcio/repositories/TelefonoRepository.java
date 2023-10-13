@@ -9,6 +9,5 @@ import ar.com.sal.consorcio.entities.Telefono;
 
 @Repository
 public interface TelefonoRepository extends CrudRepository<Telefono, Integer>{
-    List<Telefono> findByActivo(boolean activo);
     List<Telefono> findByIdPersonaAndActivo(int idPersona, boolean activo);
 }
