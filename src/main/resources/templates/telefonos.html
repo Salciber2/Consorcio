@@ -34,12 +34,12 @@
                 <!-- Fin Formulario de Búsqueda de Teléfonos -->
 
                 <!-- Formulario Alta de Teléfonos -->
-                <form class="my-4 alert alert-secondary" method="post" th:object="${telefono}" >
+                <form class="my-4 alert alert-secondary" method="post" th:object="${telefono}" th:action="@{/telefonosSave}">
                     <h2>Agregar Teléfono</h2>
                     <div class="alert alert-info" role="alert" th:text="${mensajeTelefono}"></div>
                     <div class="mb-3">
                         <label for="numero" class="form-label">Numero</label>
-                        <input type="number" class="form-control" th:field="*{numero}" required>
+                        <input type="text" class="form-control" th:field="*{numero}" required>
                     </div>
                     <div class="mb-3">
                         <label for="comentario" class="form-label">Comentario</label>
@@ -61,6 +61,7 @@
                         <th scope="col">ID</th>
                         <th scope="col">Número</th>
                         <th scope="col">Comentario</th>
+                        <th scope="col">Ver</th>
                         <th scope="col">Borrar</th>
                         </tr>
                     </thead>
@@ -78,7 +79,7 @@
                                 </form>
                             </td>
                             <td class="col-sm-1" th:if="${telefono.activo}">
-                                <form method="post" >
+                                <form method="post" th:action="@{/telefonosRemove}">
                                     <input type="text" th:value="${telefono.id}" name="idBorrarTelefono" hidden>
                                     <button type="submit" class="btn btn-danger col-sm-12">
                                         <i class="bi bi-trash"></i>

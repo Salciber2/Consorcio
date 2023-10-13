@@ -64,7 +64,7 @@ public class DepartamentosController {
         try {
             departamentoRepository.save(departamento);
             if (departamento.getId() > 0) {
-                mensajeDepartamento = "Se guardo el departamento con el id: " + departamento.getId() + " - " + departamento.getTipo();
+                mensajeDepartamento = "Se guardo el departamento con el id: " + departamento.getId();
             } else {
                 mensajeDepartamento = "No se pudo guardar el departamento";
             }

@@ -17,7 +17,7 @@ public class Telefono implements Comparable<Telefono>{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private int id;
-    private int numero;
+    private String numero;
     private int idPersona; 
     private String comentario;
     private boolean activo;
@@ -31,7 +31,7 @@ public class Telefono implements Comparable<Telefono>{
         inicializarParametrosPredeterminados();
     }
 
-    public Telefono(int numero, int idPersona, String comentario, boolean activo, LocalDateTime fechaAlta, LocalDateTime fechaModificacion) {
+    public Telefono(String numero, int idPersona, String comentario, boolean activo, LocalDateTime fechaAlta, LocalDateTime fechaModificacion) {
         this.numero = numero;
         this.idPersona = idPersona;
         this.comentario = comentario;
@@ -40,7 +40,7 @@ public class Telefono implements Comparable<Telefono>{
         this.fechaModificacion = fechaModificacion;
     }
 
-    public Telefono(int id, int numero, int idPersona, String comentario, boolean activo, LocalDateTime fechaAlta, LocalDateTime fechaModificacion) {
+    public Telefono(int id, String numero, int idPersona, String comentario, boolean activo, LocalDateTime fechaAlta, LocalDateTime fechaModificacion) {
         this.id = id;
         this.numero = numero;
         this.idPersona = idPersona;
@@ -77,11 +77,11 @@ public class Telefono implements Comparable<Telefono>{
         this.id = id;
     }
 
-    public int getNumero() {
+    public String getNumero() {
         return numero;
     }
 
-    public void setNumero(int numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 
