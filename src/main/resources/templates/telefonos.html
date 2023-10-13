@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teléfonos</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    
+    <div class="container">
+
+        <!-- Menú de navegación -->
+        <div th:insert="~{menu::menu}"></div>
+
+        <h1 class="titulo" th:text="${persona.id + ' - ' + persona.nombre + ' ' + persona.apellido}"></h1>
+
+        <div class="row">
+            <div class="col-sm-4">
+
+                <!-- Inicio Formulario de Búsqueda de Teléfonos -->
+                <form role="search" class="alert alert-light">
+                    <h2>Buscar Teléfono</h2>
+                    <div class="d-flex">                            
+                        <input type="search" class="form-control me-2" name="buscarTelefono" placeholder="Numero de teléfono" aria-label="Search">
+                        <button type="submit" class="btn btn-outline-primary">Buscar</button>
+                    </div>
+                    <input type="checkbox" class="form-check-input me-2" name="buscarTelefonoInactivo" id="buscarTelefonoInactivo" aria-label="Search">
+                    <label for="buscarTelefonoInactivo" class="form-label">Buscar inactivos</label>
+                    <input type="text" th:value="${persona.id}" name="idPersona" hidden>
+                </form>
+                <!-- Fin Formulario de Búsqueda de Teléfonos -->
+
+                <!-- Formulario Alta de Teléfonos -->
+                <form class="my-4 alert alert-secondary" method="post" th:object="${telefono}" >
+                    <h2>Agregar Teléfono</h2>
+                    <div class="alert alert-info" role="alert" th:text="${mensajeTelefono}"></div>
+                    <div class="mb-3">
+                        <label for="numero" class="form-label">Numero</label>
+                        <input type="number" class="form-control" th:field="*{numero}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="comentario" class="form-label">Comentario</label>
+                        <textarea class="form-control" name="comentario" th:field="*{comentario}" rows="3"></textarea>
+                    </div>
+
+                    <input type="number" class="form-control" th:value="${persona.id}" th:name="idPersona" th:id="idPersona" hidden>
+
+                    <button type="submit" class="btn btn-primary">Agregar</button>
+                    <button type="reset" class="btn btn-danger">Limpiar</button>
+                </form>
+                <!-- Fin Formulario Alta de Teléfonos -->
+            </div>            
+            <div class="col-sm-8">
+                <!-- Lista de Teléfonos -->
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Número</th>
+                        <th scope="col">Comentario</th>
+                        <th scope="col">Borrar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="telefono : ${telefonos}" th:class="${!telefono.activo} ? 'table-danger'">
+                            <th scope="row" class="col-sm-1" th:text="${telefono.id}">1</th>
+                            <td class="col-sm-1" th:text="${telefono.numero}"></td>
+                            <td class="overflow-hidden col-sm-7" th:text="${telefono.comentario}"></td>
+                            <td class="col-sm-1" th:colspan="${!telefono.activo} ? 2">
+                                <form th:action="@{/telefonos}">
+                                    <input type="text" th:value="${telefono.id}" name="idTelefono" hidden>
+                                    <button type="submit" class="btn btn-info col-sm-12">
+                                        <i class="bi bi-telephone"></i>
+                                    </button>
+                                </form>
+                            </td>
+                            <td class="col-sm-1" th:if="${telefono.activo}">
+                                <form method="post" >
+                                    <input type="text" th:value="${telefono.id}" name="idBorrarTelefono" hidden>
+                                    <button type="submit" class="btn btn-danger col-sm-12">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- Fin Lista de Teléfonos -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JS -->
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

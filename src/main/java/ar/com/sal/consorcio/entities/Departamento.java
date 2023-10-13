@@ -106,11 +106,11 @@ public class Departamento implements Comparable<Departamento>{
         this.piso = piso;
     }
 
-    public TipoDepartamento getTipoDepartamento() {
+    public TipoDepartamento getTipo() {
         return tipo;
     }
 
-    public void setTipoDepartamento(TipoDepartamento tipo) {
+    public void setTipo(TipoDepartamento tipo) {
         this.tipo = tipo;
     }
 

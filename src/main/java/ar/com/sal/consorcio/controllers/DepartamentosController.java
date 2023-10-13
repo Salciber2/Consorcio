@@ -1,6 +1,5 @@
 package ar.com.sal.consorcio.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +64,7 @@ public class DepartamentosController {
         try {
             departamentoRepository.save(departamento);
             if (departamento.getId() > 0) {
-                mensajeDepartamento = "Se guardo el departamento con el id: " + departamento.getId();
+                mensajeDepartamento = "Se guardo el departamento con el id: " + departamento.getId() + " - " + departamento.getTipo();
             } else {
                 mensajeDepartamento = "No se pudo guardar el departamento";
             }
