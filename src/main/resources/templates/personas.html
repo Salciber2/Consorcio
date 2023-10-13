@@ -82,7 +82,7 @@
                                 </form>
                             </td>
                             <td class="col-sm-1" th:colspan="${!persona.activo} ? 2">
-                                <form th:action="@{/personas}">
+                                <form th:action="@{/mails}">
                                     <input type="text" th:value="${persona.id}" name="idPersona" hidden>
                                     <button type="submit" class="btn btn-info col-sm-12">
                                         <i class="bi bi-envelope-at"></i>
