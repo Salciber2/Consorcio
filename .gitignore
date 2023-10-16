@@ -35,3 +35,4 @@ build/
 ### Proyecto ###
 src/main/java/ar/com/sal/consorcio/connectors/Connector.java
 src/main/resources/application.properties
+data/
