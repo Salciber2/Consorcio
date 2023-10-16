@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Departamentos</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    
+    <div class="container">
+
+        <!-- Menú de navegación -->
+        <div th:insert="~{menu::menu}"></div>
+
+        <h1 class="titulo">Administración del departamento</h1>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <ul class="list-group list-group-flush">
+                    <h2>Edificio</h2>
+                    <li class="list-group-item">
+                        <b>ID:</b> <span th:text="${edificio.id}"></span>
+                    </li>
+                    <li class="list-group-item">
+                        <b>Dirección:</b> <span th:text="${edificio.direccion}"></span>
+                    </li>
+                    <li class="list-group-item">
+                        <b>Comentario:</b> <span th:text="${edificio.comentario}"></span>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm-6">
+                <ul class="list-group list-group-flush">
+                    <h2>Departamento</h2>
+                    <li class="list-group-item">
+                        <b>ID:</b> <span th:text="${departamento.id}"></span>
+                    </li>
+                    <li class="list-group-item">
+                        <b>Piso:</b> <span th:text="${departamento.piso}"></span>
+                    </li>
+                    <li class="list-group-item">
+                        <b>Número:</b> <span th:text="${departamento.numero}"></span>
+                    </li>
+                    <li class="list-group-item">
+                        <b>Tipo:</b> <span th:text="${departamento.tipo}"></span>
+                    </li>
+                    <li class="list-group-item">
+                        <b>Comentario:</b> <span th:text="${departamento.comentario}"></span>
+                    </li>
+                </ul>
+            </div>
+
+            <hr>
+
+            <div class="col-sm-6">
+                <!-- Inicio Formulario de Búsqueda de Personas -->
+                <form role="search" class="alert alert-light">
+                    <h2>Buscar Persona</h2>
+                    <div class="d-flex">                            
+                        <input type="search" class="form-control me-2" name="buscarPersona" placeholder="Nombre o apellido de la persona" aria-label="Search">
+                        <input type="text" th:value="${edificio.id}" name="idEdificio" hidden>
+                        <input type="text" th:value="${departamento.id}" name="id" hidden>
+                        <button type="submit" class="btn btn-outline-primary">Buscar</button>
+                    </div>
+                </form>
+                <!-- Fin Formulario de Búsqueda de Personas -->
+
+                <!-- Lista de Personas -->
+                <h2>Buscar personas</h2>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">Comentario</th>
+                        <th scope="col">Vincular</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="persona : ${personas}" th:class="${!persona.activo} ? 'table-danger'">
+                            <th scope="row" class="col-sm-1" th:text="${persona.id}">1</th>
+                            <td class="col-sm-1" th:text="${persona.nombre}"></td>
+                            <td class="col-sm-1" th:text="${persona.apellido}"></td>
+                            <td class="overflow-hidden col-sm-4" th:text="${persona.comentario}"></td>
+                            <td class="col-sm-4">
+                                <form method="post" class="d-flex" th:object="${personaDepartamento}" th:action="@{/personasDepartamentosSave}"> <!-- Vincular persona -->
+                                    <input type="text" th:value="${persona.id}" name="idPersona" id="idPersona" hidden>
+                                    <input type="text" th:value="${departamento.id}" name="idDepartamento" id="idDepartamento" hidden>
+                                    <select class="form-select" aria-label="Relación" name="relacion" id="relacion">
+                                        <option th:each="relacion: ${relaciones}" th:text="${relacion}" th:value="${relacion}"></option>
+                                    </select>
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="bi bi-person-add"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- Fin Lista de Personas -->
+            </div>
+
+            <div class="col-sm-6">            
+                <!-- Lista de Personas Asociadas -->
+                <h2>Personas asociadas</h2>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">Comentario</th>
+                        <th scope="col">Desvincular</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="personaDepartamento : ${personasAsociadas}" th:class="${!personaDepartamento.activo} ? 'table-danger'">
+                            <th scope="row" class="col-sm-1" th:text="${personaDepartamento.persona.id}">1</th>
+                            <td class="col-sm-1" th:text="${personaDepartamento.persona.nombre}"></td>
+                            <td class="col-sm-1" th:text="${personaDepartamento.persona.apellido}"></td>
+                            <td class="overflow-hidden col-sm-7" th:text="${personaDepartamento.relacion}"></td>
+                            <td class="col-sm-1" th:if="${personaDepartamento.activo}">
+                                <form method="post"> <!-- Desvincular persona -->
+                                    <input type="text" th:value="${persona.id}" name="idDesvincularPersonaDepartamento" hidden>
+                                    <input type="text" th:value="${departamento.id}" name="id" hidden>
+                                    <button type="submit" class="btn btn-warning col-sm-12">
+                                        <i class="bi bi-person-dash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- Fin Lista de Personas Asociadas -->    
+            </div>
+        </div>
+    </div>
+
+    <!-- JS -->
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

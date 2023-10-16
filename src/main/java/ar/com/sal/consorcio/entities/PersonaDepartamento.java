@@ -11,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "personas_x_departamentos")
@@ -21,6 +22,8 @@ public class PersonaDepartamento implements Comparable<PersonaDepartamento>{
     @Column(unique = true, nullable = false)
     private int id;
     private int idPersona;
+    @Transient
+    private Persona persona;
     private int idDepartamento;
     @Enumerated(value = EnumType.STRING)
     private Relacion relacion;
@@ -92,6 +95,14 @@ public class PersonaDepartamento implements Comparable<PersonaDepartamento>{
 
     public void setIdPersona(int idPersona) {
         this.idPersona = idPersona;
+    }
+
+    public Persona getPersona() {
+        return persona;
+    }
+
+    public void setPersona(Persona persona) {
+        this.persona = persona;
     }
 
     public int getIdDepartamento() {

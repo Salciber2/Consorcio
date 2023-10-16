@@ -68,7 +68,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="persona : ${likeNombreOrApellido}" th:class="${!persona.activo} ? 'table-danger'">
+                        <tr th:each="persona : ${personas}" th:class="${!persona.activo} ? 'table-danger'">
                             <th scope="row" class="col-sm-1" th:text="${persona.id}">1</th>
                             <td class="col-sm-1" th:text="${persona.nombre}"></td>
                             <td class="col-sm-1" th:text="${persona.apellido}"></td>

@@ -34,7 +34,7 @@ public class PersonasController {
                                             .filter(e -> e.getNombre().toLowerCase().contains(buscarPersona.toLowerCase())
                                                             || e.getApellido().toLowerCase().contains(buscarPersona.toLowerCase()))
                                             .toList();
-        model.addAttribute("likeNombreOrApellido", listaPersonas);
+        model.addAttribute("personas", listaPersonas);
 
         return "personas";
     }

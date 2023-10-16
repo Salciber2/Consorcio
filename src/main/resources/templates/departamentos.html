@@ -15,11 +15,24 @@
         <!-- Menú de navegación -->
         <div th:insert="~{menu::menu}"></div>
 
-        <h1 class="titulo" th:text="${edificio.id + ' - ' + edificio.direccion}"></h1>
+        <h1 class="titulo">Administración del edificio</h1>
 
         <div class="row">
+            <div class="col-sm-12">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <b>ID:</b> <span th:text="${edificio.id}"></span>
+                    </li>
+                    <li class="list-group-item">
+                        <b>Dirección:</b> <span th:text="${edificio.direccion}"></span>
+                    </li>
+                    <li class="list-group-item">
+                        <b>Comentario:</b> <span th:text="${edificio.comentario}"></span>
+                    </li>
+                </ul>
+            </div>
+            <hr>
             <div class="col-sm-4">
-
                 <!-- Inicio Formulario de Búsqueda de Departamentos -->
                 <form role="search" class="alert alert-light">
                     <h2>Buscar Departamento</h2>
@@ -81,8 +94,9 @@
 
                                 <div class="card-footer d-flex gap-2">                                        
                                     <div class="col-sm-6">
-                                        <form>
-                                            <input type="text" th:value="${departamento.id}" name="idDepartamento" hidden>
+                                        <form th:action="@{/departamento}">
+                                            <input type="text" th:value="${edificio.id}" name="idEdificio" hidden>
+                                            <input type="text" th:value="${departamento.id}" name="id" hidden>
                                             <button type="submit" class="btn btn-info col-sm-12">
                                                 <i class="bi bi-eye"></i>
                                             </button>

@@ -53,7 +53,7 @@
                 <!-- Lista de Edificios -->
                 <div class="my-4">    
                     <div class="row row-cols-1 row-cols-md-3 g-2" >
-                        <div class="col" th:each="edificio : ${likeDireccion}">
+                        <div class="col" th:each="edificio : ${edificios}">
                             <div class="card">
                                 <h5 th:class="${edificio.activo} ? 'card-header text-bg-success' : 'card-header text-bg-danger'" th:text="${edificio.id + ' - ' + edificio.direccion}"></h5>
                                 <div class="card-body overflow-hidden">

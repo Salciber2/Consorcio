@@ -32,7 +32,7 @@ public class EdificiosController {
                                             .stream()
                                             .filter(e -> e.getDireccion().toLowerCase().contains(buscarEdificio.toLowerCase()))
                                             .toList();
-        model.addAttribute("likeDireccion", listaEdificios);
+        model.addAttribute("edificios", listaEdificios);
 
         return "edificios";
     }
