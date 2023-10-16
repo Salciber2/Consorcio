@@ -68,7 +68,7 @@ public class DepartamentoController {
 
         List<PersonaDepartamento> listaPersonasDepartamentos = ((List<PersonaDepartamento>) personaDepartamentoRepository
                                                                     .findByActivoAndIdDepartamento(true, departamentoActual.getId()));
-                                                                    
+
         listaPersonasDepartamentos.forEach(pd -> {
             pd.setPersona(personaRepository.findById(pd.getIdPersona()).get());
         });
@@ -80,16 +80,43 @@ public class DepartamentoController {
     @PostMapping("/personasDepartamentosSave")
     public String personasDepartamentosSave(@ModelAttribute PersonaDepartamento personaDepartamento){
         try {
-            personaDepartamentoRepository.save(personaDepartamento);
+            PersonaDepartamento personaDepartamentoExistente = personaDepartamentoRepository
+                .findByIdDepartamentoAndIdPersona(personaDepartamento.getIdDepartamento(), personaDepartamento.getIdPersona());
+            if(personaDepartamentoExistente != null) {
+                personaDepartamentoExistente.setActivo(true);
+                personaDepartamentoExistente.setRelacion(personaDepartamento.getRelacion());
+                personaDepartamentoRepository.save(personaDepartamentoExistente);
+            } else {
+                personaDepartamentoRepository.save(personaDepartamento);
             if (personaDepartamento.getId() > 0) {
                 mensajePersonaDepartamento = "Se vinculó la persona con el id: " + personaDepartamento.getId();
-            } else {
-                mensajePersonaDepartamento = "No se pudo vincular la persona";
+                } else {
+                    mensajePersonaDepartamento = "No se pudo vincular la persona";
+                }
             }
         } catch (Exception e) {
             mensajePersonaDepartamento = "Error al vincular la persona";
         }
+
         return "redirect:departamento?idEdificio=" + edificioActual.getId() + "&id=" + departamentoActual.getId();
     }
-    
+
+    @PostMapping("/personasDepartamentosRemove")
+    public String personasDepartamentosRemove(@RequestParam(name = "idBorrarPersonaDepartamento", defaultValue = "0", required = false) int idBorrarPersonaDepartamento){
+        try {
+            PersonaDepartamento personaDepartamento = personaDepartamentoRepository.findById(idBorrarPersonaDepartamento).get();
+            if(personaDepartamento.isActivo()) {                
+                personaDepartamento.setActivo(false);
+                personaDepartamentoRepository.save(personaDepartamento);
+                mensajePersonaDepartamento = "La relación con id: " + idBorrarPersonaDepartamento + " fue eliminada";
+            } else {
+                mensajePersonaDepartamento = "La relación con id: " + idBorrarPersonaDepartamento + " ya está inactiva";
+
+            }
+        } catch (Exception e) {
+            mensajePersonaDepartamento = "No se pudo borrar la relación con id: " + idBorrarPersonaDepartamento;
+        }
+
+        return "redirect:departamento?idEdificio=" + edificioActual.getId() + "&id=" + departamentoActual.getId();
+    }
 }

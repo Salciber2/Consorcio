@@ -107,26 +107,26 @@
             <div class="col-sm-6">            
                 <!-- Lista de Personas Asociadas -->
                 <h2>Personas asociadas</h2>
+                <div class="alert alert-info" role="alert" th:text="${mensajePersonaDepartamento}"></div>
                 <table class="table table-striped">
                     <thead>
                         <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Apellido</th>
-                        <th scope="col">Comentario</th>
+                        <th scope="col">Relación</th>
                         <th scope="col">Desvincular</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr th:each="personaDepartamento : ${personasAsociadas}" th:class="${!personaDepartamento.activo} ? 'table-danger'">
-                            <th scope="row" class="col-sm-1" th:text="${personaDepartamento.persona.id}">1</th>
+                            <th scope="row" class="col-sm-1" th:text="${personaDepartamento.id}">1</th>
                             <td class="col-sm-1" th:text="${personaDepartamento.persona.nombre}"></td>
                             <td class="col-sm-1" th:text="${personaDepartamento.persona.apellido}"></td>
                             <td class="overflow-hidden col-sm-7" th:text="${personaDepartamento.relacion}"></td>
                             <td class="col-sm-1" th:if="${personaDepartamento.activo}">
-                                <form method="post"> <!-- Desvincular persona -->
-                                    <input type="text" th:value="${persona.id}" name="idDesvincularPersonaDepartamento" hidden>
-                                    <input type="text" th:value="${departamento.id}" name="id" hidden>
+                                <form method="post" th:action="@{/personasDepartamentosRemove}"> <!-- Desvincular persona -->
+                                    <input type="text" th:value="${personaDepartamento.id}" name="idBorrarPersonaDepartamento" hidden>
                                     <button type="submit" class="btn btn-warning col-sm-12">
                                         <i class="bi bi-person-dash"></i>
                                     </button>
