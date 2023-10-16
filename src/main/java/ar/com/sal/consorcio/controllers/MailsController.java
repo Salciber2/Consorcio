@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import ar.com.sal.consorcio.entities.Mail;
 import ar.com.sal.consorcio.entities.Persona;
-import ar.com.sal.consorcio.entities.Telefono;
 import ar.com.sal.consorcio.repositories.MailRepository;
 import ar.com.sal.consorcio.repositories.PersonaRepository;
 
