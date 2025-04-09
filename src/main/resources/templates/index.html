@@ -1,15 +1,34 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Finanzas Personales</title>
+    <title>Sistema</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <h1 class="title">Finanzas Personales</h1>
-    <p th:text="*{nombreHTML}">Finanzas Personales</p>
+    
+    <div class="container">
+        <!-- Menú de navegación -->
+        <div th:insert="~{menu::menu}"></div>
 
+        <h1 class="titulo">Sistema</h1>
 
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab non sit voluptatibus nobis libero deleniti obcaecati soluta eveniet ducimus nisi, eaque assumenda sapiente numquam dolorem quis accusantium voluptate molestias! Sed!</p>
+        <div class="row">
+            <div class="col-sm-3 text-center">
+                <h2>Consorcio</h2>
+                <div class="list-group list-group-flush">
+                    <a href="/edificios" class="list-group-item list-group-item-action">Edificios</a>
+                    <a href="/personas" class="list-group-item list-group-item-action">Personas</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS -->
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
